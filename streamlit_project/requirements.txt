@@ -1,0 +1,5 @@
+streamlit
+supabase
+dotenv
+os
+pandas
