@@ -20,18 +20,21 @@ if st.session_state.sesi == 1:
     with st.form(key="test", clear_on_submit= True):
         nama = st.text_input("Masukkan nama")
         alamat = st.text_input("Masukkan alamat")
-        nomor_telepon = st.text_input("Masukkan nomor telepon")
+        nomor_telepon = st.number_input("Masukkan nomor telepon", step=1)
 
         x= st.form_submit_button()
         if x:
-            supabase.table("Pelanggan").insert({
-                "nama": nama,
-                "alamat": alamat,
-                "nomor_telepon": nomor_telepon
-            }).execute()    
-            st.balloons()
-            st.session_state.sesi = 2
-            st.rerun()
+            if nama and alamat and nomor_telepon:
+                supabase.table("Pelanggan").insert({
+                    "nama": nama,
+                    "alamat": alamat,
+                    "nomor_telepon": nomor_telepon
+                }).execute()    
+                st.balloons()
+                st.session_state.sesi = 2
+                st.rerun()
+            else:
+                st.error("Masukin datanya dong")
 
 if st.session_state.sesi == 2:
     st.header("Data Pelanggan")
